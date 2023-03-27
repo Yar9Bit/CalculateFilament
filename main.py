@@ -32,7 +32,7 @@ class CombFrame(ttk.Frame):
 
     def calculate_consumption(self) -> None:
         sel_filament = filament.get(self.combobox.get()).get('density')
-        inp_mm = int(self.ent.get())
+        inp_mm = abs(int(self.ent.get()))
         consumption = ((inp_mm * pi * (self.d ** 2) / 4) * sel_filament)
         self.label_consumption['text'] = '{0:.3f} грамм'.format(consumption / 1000)
         return None
