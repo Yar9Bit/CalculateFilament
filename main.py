@@ -4,7 +4,7 @@ from data import filament
 from math import pi
 
 
-class CombFrame(ttk.Frame):
+class FilamentFrame(ttk.Frame):
     d = 1.75
 
     def __init__(self, container):
@@ -30,11 +30,14 @@ class CombFrame(ttk.Frame):
 
         self.pack()
 
-    def calculate_consumption(self) -> None:
+    def filament_volume(self) -> float:
         sel_filament = filament.get(self.combobox.get()).get('density')
         inp_mm = abs(int(self.ent.get()))
         consumption = ((inp_mm * pi * (self.d ** 2) / 4) * sel_filament)
-        self.label_consumption['text'] = '{0:.3f} грамм'.format(consumption / 1000)
+        return consumption
+
+    def calculate_consumption(self) -> None:
+        self.label_consumption['text'] = '{0:.3f} грамм'.format(self.filament_volume() / 1000)
         return None
 
 
@@ -60,5 +63,5 @@ class App(Tk):
 if __name__ == '__main__':
     app = App()
     frame = MainFrame(app)
-    combobox_frame = CombFrame(app)
+    combobox_frame = FilamentFrame(app)
     app.mainloop()
